@@ -19,6 +19,7 @@ public class PhotoStudio : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0.5f;
         animator.speed = 0;
         rotationAmount = 0;
         rotationCounter = 0;
@@ -26,9 +27,9 @@ public class PhotoStudio : MonoBehaviour
         resetCounterBool = false;
         clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 
+        updateAnimationName();
         createDir();
-        Invoke("startTime", 2);
-        InvokeRepeating("takePhoto", 2, 0.2f);
+        Invoke("startTime", 3.0f);
     }
 
     // Update is called once per frame
@@ -57,7 +58,6 @@ public class PhotoStudio : MonoBehaviour
     {
         if (rotationCounter == 0)
         {
-            updateAnimationName();
             currentRotationName = "Right";
         }
 
@@ -163,6 +163,7 @@ public class PhotoStudio : MonoBehaviour
     void startTime()
     {
         animator.speed = 1;
+        InvokeRepeating("takePhoto", 0.1f, 0.1f);
     }
 
     public void updateAnimationName()
@@ -175,9 +176,9 @@ public class PhotoStudio : MonoBehaviour
     public void rotateObject()
     {
 
-        rotationCounter++;
         rotationAmount += 45;
         transform.rotation = Quaternion.Euler(0, rotationAmount, 0);
+        rotationCounter++;
 
     }
 }
